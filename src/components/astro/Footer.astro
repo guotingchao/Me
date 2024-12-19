@@ -2,23 +2,22 @@
 import { Icon } from "../react/Icon";
 ---
 
-<footer id='footer' class='box mt-9 flex w-full items-center justify-between gap-2 p-3 -sm:mt-4'>
+<footer id="footer" class="box mt-9 flex w-full items-center justify-between gap-2 p-3 -sm:mt-4">
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - guotingchaopr@gmail.com</p>
-    <p>
-      <a href='https://beian.miit.gov.cn/' target='_blank' rel='noopener noreferrer'>
-        湘ICP备2024096844号-1
-      </a>
+    <p class="flex items-center justify-center gap-1 text-center">
+      <img src="ne.png" /> 湘ICP备2024096844号-1
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"> </a>
     </p>
+    <p>Copyright © {new Date().getFullYear()} - guotingchaopr@gmail.com</p>
   </aside>
   <nav>
     <a
-      href='/rss.xml'
-      class='btn btn-outline btn-primary btn-sm w-fit min-w-[100px]'
-      aria-labelledby='rss-btn-label'
+      href="/rss.xml"
+      class="btn btn-outline btn-primary btn-sm w-fit min-w-[100px]"
+      aria-labelledby="rss-btn-label"
     >
-      RSS <Icon className='text-2xl line-md--rss' />
-      <span id='rss-btn-label' class='sr-only'>Opens RSS feed xml page</span>
+      RSS <Icon className="text-2xl line-md--rss" />
+      <span id="rss-btn-label" class="sr-only">Opens RSS feed xml page</span>
     </a>
   </nav>
 </footer>
