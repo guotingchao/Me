@@ -1,0 +1,79 @@
+---
+import { Icon } from "@/components/react/Icon";
+import { formatDate } from "@/lib/date";
+import type { CollectionEntry } from "astro:content";
+import PostInfoTag from "./PostInfoTag.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+  readingTime: string;
+}
+
+const { post, readingTime } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center gap-4">
+  <PostInfoTag className="fluent--calendar-20-regular">
+    <b>{formatDate(post.data.date)}</b>
+  </PostInfoTag>
+
+  {
+    post.data.updatedDate && (
+      <PostInfoTag className="fluent--calendar-edit-20-regular">
+        Updated <b>{formatDate(post.data.updatedDate)}</b>
+      </PostInfoTag>
+    )
+  }
+
+  <PostInfoTag className="fluent--reading-list-20-regular">
+    {readingTime}
+  </PostInfoTag>
+  <PostInfoTag
+    class="!rounded-none py-1"
+    id="views-badge"
+    data-slug={post.slug}
+    className="fluent--eye-lines-20-regular"
+  >
+    <span id="views-count">
+      <Icon className="animate-spin text-xs fluent--spinner-ios-20-regular" />
+    </span>
+    views
+  </PostInfoTag>
+
+  <PostInfoTag class="!rounded-none py-1" className="fluent--book-20-regular">
+    <span id="reads-count">
+      <Icon className="animate-spin text-xs fluent--spinner-ios-20-regular" />
+    </span>
+    reads
+  </PostInfoTag>
+</div>
+
+<script>
+  import { postsApi } from "@/lib/api";
+
+  function main() {
+    const badge = document.querySelector("#views-badge")! as HTMLElement;
+    const viewsCount = document.querySelector("#views-count")!;
+    const readsCount = document.querySelector("#reads-count")!;
+
+    const slug = badge.dataset.slug!;
+
+    postsApi
+      .getPost(slug)
+      .then(({ post }) => {
+        viewsCount.textContent = String(post.views);
+        readsCount.textContent = String(post.reads);
+
+        const cat = document.getElementById("cat-count") as HTMLElement | undefined;
+        if (!cat) return;
+        cat.textContent = String(post.likes);
+      })
+
+      .catch(() => {
+        viewsCount.textContent = "1337";
+        readsCount.textContent = "777";
+      });
+  }
+
+  main();
+</script>

@@ -1,0 +1,43 @@
+---
+import { cn } from "@/lib/cn";
+import type { CollectionEntry } from "astro:content";
+import PostInfo from "./PostInfo.astro";
+
+interface Props {
+  readingTime: string;
+  post: CollectionEntry<"posts">;
+}
+
+const { readingTime, post } = Astro.props;
+---
+
+<div data-pagefind-body>
+  <header class="mx-auto mt-8 flex w-[--article-width] max-w-full flex-col gap-4">
+    <h1 class="text-balance text-6xl font-extrabold -sm:text-4xl">
+      {post.data.title}
+    </h1>
+
+    <p class="max-w-xl text-balance border-l-2 border-l-primary py-2 pl-4 text-xl -sm:text-lg">
+      {post.data.description}
+    </p>
+    <PostInfo post={post} readingTime={readingTime} />
+  </header>
+
+  <article
+    class={cn(
+      "prose-code:not-prose mx-auto prose prose-pre:scrollbar-thin prose-code:font-jetbrains prose-code:!text-[14px] prose-headings:font-black justify-self-center w-[--article-width] max-w-full article-body",
+    )}
+  >
+    <slot />
+  </article>
+</div>
+
+<style is:global>
+  .article-body {
+    @apply hyphens-auto;
+  }
+  .article-body p code {
+    font: inherit !important;
+    @apply !bg-base-300 rounded-md  px-1 mr-[2px] font-bold;
+  }
+</style>

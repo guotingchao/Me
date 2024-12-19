@@ -1,0 +1,31 @@
+---
+import Pagination from "@/components/astro/Pagination.astro";
+import PostCard from "@/components/astro/posts/PostCard.astro";
+import Layout from "@/layouts/base";
+import { getPosts } from "@/lib/posts";
+import type { PaginateFunction } from "astro";
+
+export async function getStaticPaths({ paginate }: { paginate: PaginateFunction }) {
+  const allPosts = await getPosts();
+  return paginate(
+    allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()),
+    { pageSize: 6 },
+  );
+}
+
+const { page: pageInfo } = Astro.props;
+---
+
+<Layout
+  title="Void Flower | Blog posts"
+  description="Blog posts page of Void Flower blog"
+  mainClassname="flex flex-col gap-4"
+  bodyClassname="h-screen supports-[h-[100svh]:h-[100svh]"
+  wrapperClassname="!h-auto min-h-full"
+>
+  <div class="box flex min-h-full w-full flex-wrap justify-center gap-4">
+    {pageInfo.data.map((post) => <PostCard post={post} />)}
+  </div>
+
+  <Pagination page={pageInfo} baseUrl="/blog" />
+</Layout>

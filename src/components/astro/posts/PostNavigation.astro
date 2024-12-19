@@ -1,0 +1,52 @@
+---
+import { Icon } from "@/components/react/Icon";
+import type { CollectionEntry } from "astro:content";
+
+type MaybePost = CollectionEntry<"posts"> | null;
+interface Props {
+  next?: MaybePost;
+  prev?: MaybePost;
+}
+
+const { next, prev } = Astro.props;
+---
+
+<div class="box mt-12 flex flex-col gap-2">
+  <slot name="title" />
+
+  {
+    next && (
+      <a
+        data-astro-prefetch
+        href={`/blog/${next.slug}`}
+        class="group btn btn-outline btn-primary justify-between transition-all"
+      >
+        <span>next_article</span>
+
+        <span>
+          <b class="text-2xl -sm:text-sm">{next.data.title}</b>
+
+          <Icon className="la--arrow-right ml-2 align-middle" />
+        </span>
+      </a>
+    )
+  }
+
+  {
+    prev && (
+      <a
+        data-astro-prefetch
+        href={`/blog/${prev.slug}`}
+        class="group btn btn-outline btn-accent justify-between transition-all"
+      >
+        <span>
+          <Icon className="la--arrow-left mr-2 align-middle" />
+
+          <b class="text-2xl -sm:text-sm">{prev.data.title}</b>
+        </span>
+
+        <span>PreviousArticle</span>
+      </a>
+    )
+  }
+</div>

@@ -1,0 +1,23 @@
+---
+import { CONFIG } from "config";
+import type { LayoutProps } from "./types";
+
+interface Props extends LayoutProps {}
+
+const { title, description, image } = Astro.props;
+
+const imgUrl = image && new URL(image, Astro.url).toString();
+---
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={CONFIG.SITE_TITLE} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content={Astro.url} />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:card" content="summary" />
+
+{imgUrl && <meta property="twitter:image" content={imgUrl} />}
+{imgUrl && <meta property="og:image" content={imgUrl} />}

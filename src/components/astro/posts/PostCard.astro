@@ -1,0 +1,61 @@
+---
+import { formatDate } from "@/lib/date";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+
+const colors = ["p", "a", "in", "su", "s", "wa", "er"];
+const color = colors[Math.floor(Math.random() * colors.length)];
+
+const formattedDate = formatDate(post.data.date);
+const {
+  remarkPluginFrontmatter: { readingTime },
+} = await post.render();
+---
+
+<a
+  style={{
+    "--color": `oklch(var(--${color}))`,
+  }}
+  data-astro-prefetch
+  href={`/blog/${post.slug}`}
+  class="cursor:pointer dungeon-master flex w-full cursor-pointer items-center justify-between gap-2 rounded-btn bg-base-100 p-3 transition-all duration-75 hover:text-primary -sm:flex-col -sm:items-start -sm:justify-start"
+>
+  <h3 class="text-lg font-bold transition-all">
+    {post.data.title}
+  </h3>
+  <div class="flex items-center gap-x-2 text-sm transition-all">
+    <span>{formattedDate}</span> |
+    <span>{readingTime}</span>
+  </div>
+</a>
+
+<style>
+  .dungeon-master {
+    @apply relative;
+
+    &:before {
+      @apply content-[""] bg-[--color] w-full transition-all h-full absolute left-0 top-0 rounded-btn blur-xl -z-[1];
+      animation: hoveer 5s infinite forwards;
+      @media (prefers-reduced-motion) {
+        animation: none;
+        @apply scale-[1.05];
+      }
+    }
+  }
+  @keyframes hoveer {
+    0% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(0.85);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+</style>

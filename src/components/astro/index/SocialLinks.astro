@@ -1,0 +1,36 @@
+---
+import { Icon } from "@/components/react/Icon";
+import { cn } from "@/lib/cn";
+import { CONFIG } from "config";
+
+interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<ul class={cn("not-prose flex flex-wrap gap-2", className)} role="list">
+  {
+    Object.entries(CONFIG.SOCIAL_LINKS).map(([, { label, icon, url }]) => {
+      return (
+        <li>
+          <a
+            href={url}
+            aria-label={label}
+            title={label}
+            class="btn btn-outline btn-sm flex items-center justify-center"
+            target="_blank"
+            rel="nofollow"
+            aria-labelledby={`${label}-btn-label`}
+          >
+            <Icon className={`size-4 md:size-6 ${icon}`} />
+            <span id={`${label}-btn-label`} class="sr-only">
+              Opens {label} social network link in the separate window
+            </span>
+          </a>
+        </li>
+      );
+    })
+  }
+</ul>
