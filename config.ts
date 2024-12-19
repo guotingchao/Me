@@ -39,17 +39,12 @@ export const SOCIAL_LINKS = {
   github: {
     label: "GitHub",
     icon: "line-md--github",
-    url: "https://github.com/Serpentarius13",
+    url: "https://github.com/guotingchao",
   },
   twitter: {
     label: "Twitter",
     icon: "line-md--twitter-x",
-    url: "https://twitter.com/numinosityy",
-  },
-  telegram: {
-    label: "Telegram",
-    icon: "line-md--telegram",
-    url: "https://t.me/numinosityy",
+    url: "https://x.com/BytesGzc",
   },
 } as const satisfies Record<
   string,
@@ -60,7 +55,7 @@ export const SOCIAL_LINKS = {
   }
 >;
 
-const SITE_URL = import.meta.env.PROD ? "https://voidflower.dev" : "http://localhost:4321";
+const SITE_URL = import.meta.env.PROD ? "https://bitedance.fun" : "http://localhost:4321";
 
 const SITE_TITLE = "Void Flower";
 
