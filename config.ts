@@ -57,7 +57,7 @@ export const SOCIAL_LINKS = {
 
 const SITE_URL = import.meta.env.PROD ? "https://bitedance.fun" : "http://localhost:4321";
 
-const SITE_TITLE = "Void Flower";
+const SITE_TITLE = "Void memo";
 
 export const CONFIG = {
   NAV_LINKS,

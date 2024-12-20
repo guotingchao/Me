@@ -4,12 +4,20 @@ import { Icon } from "../react/Icon";
 
 <footer id="footer" class="box mt-9 flex w-full items-center justify-between gap-2 p-3 -sm:mt-4">
   <aside>
-    <p class="flex items-center justify-center gap-1 text-center">
-      <img src="ne.png" /> 湘ICP备2024096844号-1
-      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"> </a>
-    </p>
-    <p>Copyright © {new Date().getFullYear()} - guotingchaopr@gmail.com</p>
+    {
+      Astro.url.hostname.endsWith("bitedance.fun") && (
+        <p class="flex items-center justify-center gap-1 text-center">
+          <img src="ne.png" />
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+            湘ICP备2024096844号-1
+          </a>
+        </p>
+      )
+    }
   </aside>
+  <span>{new Date().getFullYear()}</span>
+  <span>•</span>
+  <a href="/" class="transition-colors hover:text-primary">me.bitedance.fun</a>
   <nav>
     <a
       href="/rss.xml"
