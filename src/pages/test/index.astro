@@ -5,4 +5,5 @@ if (import.meta.env.PROD) return Astro.redirect("/");
 
 const postName = "about-me";
 const post = await getCollection("posts", ({ slug }) => slug === postName).then((r) => r[0]);
+console.debug("🐛🐛🐛 ::: post:::", post);
 ---
